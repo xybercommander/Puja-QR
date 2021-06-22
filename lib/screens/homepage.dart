@@ -30,8 +30,7 @@ class _HomePageState extends State<HomePage> {
       // ),
 
       body: PageView(
-        controller: pageController,
-        physics: BouncingScrollPhysics(),
+        controller: pageController,        
         scrollDirection: Axis.horizontal,
         onPageChanged: (value) {
           setState(() {
