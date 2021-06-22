@@ -19,6 +19,11 @@ class _GeneratorState extends State<Generator> {
   List<String> pujaDates = ['Shashti', 'Saptami', 'Ashtami', 'Nabami', 'Dashami'];
   List<String> events = ['Lunch', 'Dinner'];
 
+  // final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  bool nameCheck = false;
+  bool dateCheck = false;
+  bool eventCheck = false;
+
 
   @override
   Widget build(BuildContext context) {
@@ -84,10 +89,21 @@ class _GeneratorState extends State<Generator> {
                       borderRadius: BorderRadius.circular(10)
                     ),
                     child: Center(
-                      child: TextField(
+                      child: TextFormField(
                         controller: _nameController,
                         keyboardType: TextInputType.name,              
                         cursorColor: Colors.grey,
+                        onChanged: (input) {
+                          if(input.isNotEmpty) {
+                            setState(() {
+                              nameCheck = true;
+                            });
+                          } else {
+                            setState(() {
+                              nameCheck = false;
+                            });
+                          }
+                        },                        
                         decoration: InputDecoration(
                           hintText: 'Name',
                           hintStyle: TextStyle(color: Colors.grey[500]),
@@ -111,11 +127,16 @@ class _GeneratorState extends State<Generator> {
                             value: pujaDate,
                             child: Text(pujaDate),
                           );
-                        }).toList(),
+                        }).toList(),                        
                         onChanged: (value) {
                           setState(() {
                             _dateController.text = value;
                           });
+                          if(value.isNotEmpty) {
+                            setState(() {
+                              dateCheck = true;
+                            });
+                          }
                         },
                         decoration: InputDecoration(
                           hintText: 'Puja Date',
@@ -133,17 +154,22 @@ class _GeneratorState extends State<Generator> {
                       borderRadius: BorderRadius.circular(10)
                     ),
                     child: Center(
-                      child: DropdownButtonFormField(                
+                      child: DropdownButtonFormField(                                        
                         items: events.map((String event) {
                           return DropdownMenuItem(
                             value: event,
                             child: Text(event),
                           );
-                        }).toList(),
+                        }).toList(),                        
                         onChanged: (value) {
                           setState(() {
                             _eventController.text = value;
                           });
+                          if(value.isNotEmpty) {
+                            setState(() {
+                              eventCheck = true;
+                            });
+                          }
                         },
                         decoration: InputDecoration(
                           hintText: 'Event',
@@ -158,20 +184,33 @@ class _GeneratorState extends State<Generator> {
                     height: 55,
                     child: RawMaterialButton(     
                       elevation: 0,               
-                      fillColor: Theme.of(context).primaryColor,
+                      fillColor: nameCheck && dateCheck && eventCheck
+                            ? Theme.of(context).primaryColor
+                            : Colors.grey,
                       shape: StadiumBorder(),
                       onPressed: () {
-                        print('Generating');
+                        if (nameCheck && dateCheck && eventCheck) {
+                          print('Generating');
                         
-                        Navigator.push(context, PageTransition(
-                          child: QRCodePage(
-                            name: _nameController.text,
-                            pujaDate: _dateController.text,
-                            event: _eventController.text,
-                          ), 
-                          type: PageTransitionType.bottomToTop,
-                          duration: Duration(milliseconds: 150)
-                        ));
+                          Navigator.push(context, PageTransition(
+                            child: QRCodePage(
+                              name: _nameController.text,
+                              pujaDate: _dateController.text,
+                              event: _eventController.text,
+                            ), 
+                            type: PageTransitionType.bottomToTop,
+                            duration: Duration(milliseconds: 150)
+                          ));
+
+                          setState(() {
+                            _nameController.text = '';
+                            // _dateController.text = '';
+                            // _eventController.text = '';
+                            nameCheck = false;
+                            // dateCheck = false;
+                            // eventCheck = false;
+                          });
+                        }                        
                       },
                       child: Center(
                         child: Text(

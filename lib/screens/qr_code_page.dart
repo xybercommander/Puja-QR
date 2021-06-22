@@ -25,7 +25,7 @@ class _QRCodePageState extends State<QRCodePage> {
 
   // ignore: avoid_init_to_null
   String recievedUuid = null;
-  var uuid = Uuid();
+  var uuid = Uuid();  
 
   void submitForm() async {
     String generatedUuid = uuid.v4();
