@@ -1,8 +1,16 @@
+import 'dart:io';
+import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_share_me/flutter_share_me.dart';
 import 'package:lottie/lottie.dart';
 import 'package:qr_code_app/models/feedback_model.dart';
 import 'package:qr_code_app/services/mock_google_service.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:screenshot/screenshot.dart';
+// import 'package:share/share.dart';
+import 'package:share_extend/share_extend.dart';
 import 'package:uuid/uuid.dart';
 
 class QRCodePage extends StatefulWidget {
@@ -25,7 +33,10 @@ class _QRCodePageState extends State<QRCodePage> {
 
   // ignore: avoid_init_to_null
   String recievedUuid = null;
-  var uuid = Uuid();  
+  var uuid = Uuid(); 
+  ScreenshotController screenshotController = ScreenshotController();
+  File imageFile;
+
 
   void submitForm() async {
     String generatedUuid = uuid.v4();
@@ -44,6 +55,7 @@ class _QRCodePageState extends State<QRCodePage> {
       });      
     }
   }
+
 
 
   @override
@@ -85,15 +97,18 @@ class _QRCodePageState extends State<QRCodePage> {
                 borderRadius: BorderRadius.circular(40)
               ),
               child: Center(
-                child: Container(
-                  width: 255,
-                  height: 255,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(30)
-                  ),
-                  child: Center(
-                    child: qrImage(),
+                child: Screenshot(
+                  controller: screenshotController,
+                  child: Container(
+                    width: 255,
+                    height: 255,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(30)
+                    ),
+                    child: Center(
+                      child: qrImage(),
+                    ),
                   ),
                 ),
               ),
@@ -104,8 +119,12 @@ class _QRCodePageState extends State<QRCodePage> {
                 elevation: 0,               
                 fillColor: Theme.of(context).primaryColor,
                 shape: StadiumBorder(),
-                onPressed: () {
-                  print('Share');                  
+                onPressed: () async {
+                  final imageFile = await screenshotController.capture(
+                    path: '/data/user/0/com.example.qr_code_app/app_flutter/'
+                  );
+                  print(imageFile.path);
+                  // ShareExtend.share(imageFile.path, 'image/png');
                 },
                 child: Center(
                   child: Row(
@@ -143,7 +162,12 @@ class _QRCodePageState extends State<QRCodePage> {
                   ),
                 ),
               ),
-            )
+            ),
+            // imageFile != null ? Container(
+            //   height: 50,
+            //   width: 50,
+            //   child: Image.file(imageFile),
+            // ) : Container()
           ],
         ),
       )
@@ -154,11 +178,11 @@ class _QRCodePageState extends State<QRCodePage> {
   Widget qrImage() {
     return recievedUuid != null 
       ? QrImage(
-          data: recievedUuid,
-          version: QrVersions.auto,
-          size: 215,
-          gapless: false,
-        ) 
+        data: recievedUuid,
+        version: QrVersions.auto,
+        size: 215,
+        gapless: false,          
+      ) 
       : Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
