@@ -3,8 +3,8 @@ import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_share_me/flutter_share_me.dart';
 import 'package:lottie/lottie.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:qr_code_app/models/feedback_model.dart';
 import 'package:qr_code_app/services/mock_google_service.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -120,10 +120,11 @@ class _QRCodePageState extends State<QRCodePage> {
                 fillColor: Theme.of(context).primaryColor,
                 shape: StadiumBorder(),
                 onPressed: () async {
-                  final imageFile = await screenshotController.capture(
-                    path: '/data/user/0/com.example.qr_code_app/app_flutter/'
-                  );
-                  print(imageFile.path);
+                  // final directory = await getApplicationDocumentsDirectory().toString();
+                  final imageFile = await screenshotController.capture();        
+                  print(imageFile);            
+                  Share.file('qr img', 'QR code Image', imageFile, 'image/jpg');
+                  // Share.shareFiles([]);
                   // ShareExtend.share(imageFile.path, 'image/png');
                 },
                 child: Center(
