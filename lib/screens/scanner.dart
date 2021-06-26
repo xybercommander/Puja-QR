@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:qr_code_app/screens/qr_scanner_page.dart';
 
 class Scanner extends StatefulWidget {
   const Scanner({ Key key }) : super(key: key);
@@ -40,7 +42,11 @@ class _ScannerState extends State<Scanner> {
                 fillColor: Theme.of(context).primaryColor,
                 shape: StadiumBorder(),
                 onPressed: () {
-
+                  Navigator.push(context, PageTransition(
+                    child: QrScannerPage(),
+                    type: PageTransitionType.bottomToTop,
+                    duration: Duration(milliseconds: 150)
+                  ));
                 },
                 child: Center(
                   child: Text(
