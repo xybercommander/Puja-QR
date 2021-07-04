@@ -7,7 +7,7 @@ import 'package:qr_code_app/services/mock_google_service.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class QrScannerPage extends StatefulWidget {
-  const QrScannerPage({ Key key }) : super(key: key);
+  const QrScannerPage({Key key}) : super(key: key);
 
   @override
   _QrScannerPageState createState() => _QrScannerPageState();
@@ -47,7 +47,7 @@ class _QrScannerPageState extends State<QrScannerPage> {
             child: Center(
               child: (result != null)
                   ? Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Text(
                           'Barcode Type: ${describeEnum(result.format)}\n Data: ${result.code}',
@@ -56,7 +56,10 @@ class _QrScannerPageState extends State<QrScannerPage> {
                         MaterialButton(
                           onPressed: () => searchResult(result.code),
                           color: Theme.of(context).primaryColor,
-                          child: Text('Search', style: TextStyle(color: Colors.white),),
+                          child: Text(
+                            'Search',
+                            style: TextStyle(color: Colors.white),
+                          ),
                         ),
                       ],
                     )
@@ -83,10 +86,30 @@ class _QrScannerPageState extends State<QrScannerPage> {
     super.dispose();
   }
 
-
   searchResult(String uuid) async {
     SearchForm searchForm = SearchForm(uuid: uuid);
-    String result = await MockGoogleService().searchData(searchForm);
+    Map<String, dynamic> result =
+        await MockGoogleService().searchData(searchForm);
     print(result);
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: Column(
+          children: [
+            Text('Name: ${result['name']}'),
+            Text('Puja Date: ${result['date']}'),
+            Text('Event: ${result['event']}'),
+          ],
+        ),
+        actions: <Widget>[
+          TextButton(
+            child: const Text('Ok'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      )
+    );
   }
 }
