@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:qr_code_app/models/search_model.dart';
+import 'package:qr_code_app/services/mock_google_service.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class QrScannerPage extends StatefulWidget {
@@ -44,8 +46,20 @@ class _QrScannerPageState extends State<QrScannerPage> {
             flex: 1,
             child: Center(
               child: (result != null)
-                  ? Text(
-                      'Barcode Type: ${describeEnum(result.format)}   Data: ${result.code}')
+                  ? Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(
+                          'Barcode Type: ${describeEnum(result.format)}\n Data: ${result.code}',
+                          textAlign: TextAlign.center,
+                        ),
+                        MaterialButton(
+                          onPressed: () => searchResult(result.code),
+                          color: Theme.of(context).primaryColor,
+                          child: Text('Search', style: TextStyle(color: Colors.white),),
+                        ),
+                      ],
+                    )
                   : Text('Scan a code'),
             ),
           )
@@ -67,5 +81,12 @@ class _QrScannerPageState extends State<QrScannerPage> {
   void dispose() {
     controller?.dispose();
     super.dispose();
+  }
+
+
+  searchResult(String uuid) async {
+    SearchForm searchForm = SearchForm(uuid: uuid);
+    String result = await MockGoogleService().searchData(searchForm);
+    print(result);
   }
 }
