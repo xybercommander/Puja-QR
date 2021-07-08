@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:qr_code_app/models/search_model.dart';
+import 'package:qr_code_app/screens/qr_data.dart';
 import 'package:qr_code_app/services/mock_google_service.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
@@ -17,6 +19,7 @@ class _QrScannerPageState extends State<QrScannerPage> {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   Barcode result;
   QRViewController controller;
+  bool isLoading = false;
 
   // In order to get hot reload to work we need to pause the camera if the platform
   // is android, or resume the camera if the platform is iOS.
@@ -54,7 +57,10 @@ class _QrScannerPageState extends State<QrScannerPage> {
                           textAlign: TextAlign.center,
                         ),
                         MaterialButton(
-                          onPressed: () => searchResult(result.code),
+                          onPressed: () => Navigator.pushReplacement(context, PageTransition(
+                            child: QrDataPage(uuid: result.code,),
+                            type: PageTransitionType.bottomToTop
+                          )),
                           color: Theme.of(context).primaryColor,
                           child: Text(
                             'Search',
@@ -84,32 +90,5 @@ class _QrScannerPageState extends State<QrScannerPage> {
   void dispose() {
     controller?.dispose();
     super.dispose();
-  }
-
-  searchResult(String uuid) async {
-    SearchForm searchForm = SearchForm(uuid: uuid);
-    Map<String, dynamic> result =
-        await MockGoogleService().searchData(searchForm);
-    print(result);
-    showDialog(
-      context: context,
-      builder: (BuildContext context) => AlertDialog(
-        title: Column(
-          children: [
-            Text('Name: ${result['name']}'),
-            Text('Puja Date: ${result['date']}'),
-            Text('Event: ${result['event']}'),
-          ],
-        ),
-        actions: <Widget>[
-          TextButton(
-            child: const Text('Ok'),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-        ],
-      )
-    );
   }
 }
