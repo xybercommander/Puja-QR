@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 
 class MockGoogleService {
   static const String URL =
-      "https://script.google.com/macros/s/AKfycbyupxuAayvs4lElsCoBU76DDXhLuMPoUTBaNhEc8luYzU2KF6_XC6B4GNohwkS55pwKaA/exec";
+      "https://script.google.com/macros/s/AKfycbyygvucWIdAS7Q-AtA-KcQkkrMgwBgct2OKIdSHGKc_wZ3aOolz2AJhysSm8FNqRVbh2A/exec";
 
   Future<String> submitForm(FeedbackForm feedbackForm) async {
     Response response = await get(URL + feedbackForm.toParams());
