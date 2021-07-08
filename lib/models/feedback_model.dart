@@ -1,5 +1,5 @@
 class FeedbackForm {
-
+  String action;
   String id;
   String name;
   String date;
@@ -7,6 +7,5 @@ class FeedbackForm {
 
   FeedbackForm({this.id, this.name, this.date, this.event});
 
-  String toParams() => "?id=$id&name=$name&date=$date&event=$event";
-
+  String toParams() => "?action=push_data&id=$id&name=$name&date=$date&event=$event";
 }
