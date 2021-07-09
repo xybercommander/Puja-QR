@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:qr_code_app/models/feedback_model.dart';
 import 'package:qr_code_app/screens/generator.dart';
 import 'package:qr_code_app/screens/scanner.dart';
-import 'package:qr_code_app/services/mock_google_service.dart';
-import 'package:qr_flutter/qr_flutter.dart';
-import 'package:uuid/uuid.dart';
 
 
 class HomePage extends StatefulWidget {

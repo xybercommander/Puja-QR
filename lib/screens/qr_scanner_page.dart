@@ -3,9 +3,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:qr_code_app/models/search_model.dart';
 import 'package:qr_code_app/screens/qr_data.dart';
-import 'package:qr_code_app/services/mock_google_service.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class QrScannerPage extends StatefulWidget {

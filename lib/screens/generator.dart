@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:qr_code_app/screens/qr_code_page.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 
 class Generator extends StatefulWidget {
   const Generator({ Key key }) : super(key: key);

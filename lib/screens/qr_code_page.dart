@@ -1,16 +1,13 @@
 import 'dart:io';
-import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
 import 'package:lottie/lottie.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:qr_code_app/models/feedback_model.dart';
 import 'package:qr_code_app/services/mock_google_service.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:screenshot/screenshot.dart';
 // import 'package:share/share.dart';
-import 'package:share_extend/share_extend.dart';
+// import 'package:share_extend/share_extend.dart';
 import 'package:uuid/uuid.dart';
 
 class QRCodePage extends StatefulWidget {
