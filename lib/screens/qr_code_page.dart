@@ -110,62 +110,62 @@ class _QRCodePageState extends State<QRCodePage> {
                 ),
               ),
             ),
-            // Container(                    
-            //   height: 55,
-            //   child: RawMaterialButton(     
-            //     elevation: 0,               
-            //     fillColor: Theme.of(context).primaryColor,
-            //     shape: StadiumBorder(),
-            //     onPressed: () async {
-            //       // final directory = await getApplicationDocumentsDirectory().toString();
-            //       final imageFile = await screenshotController.capture();        
-            //       print(imageFile);            
-            //       Share.file('qr img', 'QR code Image', imageFile, 'image/jpg');
-            //       // Share.shareFiles([]);
-            //       // ShareExtend.share(imageFile.path, 'image/png');
-            //     },
-            //     child: Center(
-            //       child: Row(
-            //         mainAxisAlignment: MainAxisAlignment.center,
-            //         children: [
-            //           Text(
-            //             'Share',
-            //             style: TextStyle(
-            //               color: Colors.white,
-            //               fontSize: 24,                          
-            //             ),
-            //           ),
-            //           Icon(Icons.share_outlined, color: Colors.white),
-            //         ],
-            //       ),
-            //     ),
-            //   ),
-            // ),
-            // Container(                    
-            //   height: 55,
-            //   child: RawMaterialButton(     
-            //     elevation: 0,                               
-            //     shape: StadiumBorder(side: BorderSide(width: 4, color: Theme.of(context).primaryColor)),
-            //     onPressed: () {
-            //       print('Pop Button');
-            //       Navigator.pop(context);                
-            //     },
-            //     child: Center(
-            //       child: Text(
-            //         'Go Back',
-            //         style: TextStyle(
-            //           color: Theme.of(context).primaryColor,
-            //           fontSize: 24,                          
-            //         ),
-            //       ),
-            //     ),
-            //   ),
-            // ),
-            // imageFile != null ? Container(
-            //   height: 50,
-            //   width: 50,
-            //   child: Image.file(imageFile),
-            // ) : Container()
+            Container(                    
+              height: 55,
+              child: RawMaterialButton(     
+                elevation: 0,               
+                fillColor: Theme.of(context).primaryColor,
+                shape: StadiumBorder(),
+                onPressed: () async {
+                  // final directory = await getApplicationDocumentsDirectory().toString();
+                  final imageFile = await screenshotController.capture();        
+                  print(imageFile);            
+                  // Share.file('qr img', 'QR code Image', imageFile, 'image/jpg');
+                  // Share.shareFiles([]);
+                  // ShareExtend.share(imageFile.path, 'image/png');
+                },
+                child: Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Share',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 24,                          
+                        ),
+                      ),
+                      Icon(Icons.share_outlined, color: Colors.white),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Container(                    
+              height: 55,
+              child: RawMaterialButton(     
+                elevation: 0,                               
+                shape: StadiumBorder(side: BorderSide(width: 4, color: Theme.of(context).primaryColor)),
+                onPressed: () {
+                  print('Pop Button');
+                  Navigator.pop(context);                
+                },
+                child: Center(
+                  child: Text(
+                    'Go Back',
+                    style: TextStyle(
+                      color: Theme.of(context).primaryColor,
+                      fontSize: 24,                          
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            imageFile != null ? Container(
+              height: 50,
+              width: 50,
+              child: Image.file(imageFile),
+            ) : Container()
           ],
         ),
       )
