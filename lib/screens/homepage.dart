@@ -16,7 +16,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: false, 
+      resizeToAvoidBottomInset: false, 
       // appBar: AppBar(
       //   title: Text("Qr Code App", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.redAccent),),
       //   centerTitle: true,
